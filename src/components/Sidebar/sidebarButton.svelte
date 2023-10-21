@@ -3,6 +3,10 @@
   export let handle;
 </script>
 
-<button class="responsive fill large" on:click={handle}>
+<button
+  class="responsive fill large"
+  on:click={handle}
+  style="text-transform: uppercase;"
+>
   {title}
 </button>

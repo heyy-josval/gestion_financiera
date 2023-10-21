@@ -24,6 +24,12 @@ const defaultButtons = [
 
 const loginButtons = [
   {
+    title: "Perfil",
+    handle: function () {
+      goto("/profile");
+    },
+  },
+  {
     title: "Ecuacion Patrimonial",
     handle: function () {
       goto("/equity_equation");
