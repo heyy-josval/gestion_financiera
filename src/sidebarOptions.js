@@ -50,7 +50,7 @@ const loginButtons = [
   {
     title: "Punto de Equilibrio",
     handle: function () {
-      goto("/equity_equation");
+      goto("/balance_point");
     },
   },
   {
