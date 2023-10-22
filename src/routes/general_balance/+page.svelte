@@ -80,9 +80,19 @@
     const store =
       itemType === "assets"
         ? assets
+        : itemType === "assetsNC"
+        ? assetsNC
         : itemType === "liabilities"
         ? liabilities
-        : equity;
+        : itemType === "liabilitiesNC"
+        ? liabilitiesNC
+        : itemType === "equity"
+        ? equity
+        : itemType === "incomes"
+        ? incomes
+        : itemType === "expenses"
+        ? expenses
+        : costs;
     store.update((currentItems) => [...currentItems, item]);
   };
 </script>
@@ -96,7 +106,7 @@
     style="width: 50%; display: flex; flex-direction: column; align-items: center; gap: 1rem;"
   >
     <EqCard
-      title="Activos"
+      title="Activos Corrientes"
       items={$assets}
       handleDelete={(pos) => handleDelete(assets, pos)}
       handleModal={() => {
@@ -104,10 +114,24 @@
       }}
     />
     <EqCard
-      title="Pasivos"
+      title="Activos No Corrientes"
+      items={$assetsNC}
+      handleDelete={(pos) => handleDelete(assetsNC, pos)}
+      handleModal={() => {
+        handleModal("assetsNC");
+      }}
+    />
+    <EqCard
+      title="Pasivos Corrientes"
       items={$liabilities}
       handleDelete={(pos) => handleDelete(liabilities, pos)}
       handleModal={() => handleModal("liabilities")}
+    />
+    <EqCard
+      title="Pasivos No Corrientes"
+      items={$liabilitiesNC}
+      handleDelete={(pos) => handleDelete(liabilitiesNC, pos)}
+      handleModal={() => handleModal("liabilitiesNC")}
     />
     <EqCard
       title="Patrimonios"
@@ -115,68 +139,40 @@
       handleDelete={(pos) => handleDelete(equity, pos)}
       handleModal={() => handleModal("equity")}
     />
+    <EqCard
+      title="Ingresos"
+      items={$incomes}
+      handleDelete={(pos) => handleDelete(incomes, pos)}
+      handleModal={() => handleModal("incomes")}
+    />
+    <EqCard
+      title="Gastos"
+      items={$expenses}
+      handleDelete={(pos) => handleDelete(expenses, pos)}
+      handleModal={() => handleModal("expenses")}
+    />
+    <EqCard
+      title="Costos"
+      items={$costs}
+      handleDelete={(pos) => handleDelete(costs, pos)}
+      handleModal={() => handleModal("costs")}
+    />
   </div>
   <div style="width: 50%;">
     <div>
       <article>
         <h3 class="max center-align">Resultados</h3>
-        <table class="border medium-space center-align">
-          <thead>
-            <tr>
-              <th style="font-weight: bold;">#</th>
-              <th style="font-weight: bold;">Nombre</th>
-              <th style="font-weight: bold;">Precio</th>
-              <th style="font-weight: bold;">Tipo</th>
-            </tr>
-          </thead>
-          <tbody>
-            {#each $assets as asset, pos}
-              <tr>
-                <td>{pos + 1}</td>
-                <td>{asset.title}</td>
-                <td>S/. {asset.price}</td>
-                <td>Activo</td>
-              </tr>
-            {/each}
-            {#if $assets.length > 0}
-              <tr style="font-weight: bold;" class="error">
-                <td colspan="2">Total activos</td>
-                <td>S/. {$sumAssets}</td>
-                <td>Resultado</td>
-              </tr>
-            {/if}
-            {#each $liabilities as liability, pos}
-              <tr>
-                <td>{pos + 1}</td>
-                <td>{liability.title}</td>
-                <td>S/. {liability.price}</td>
-                <td>Pasivo</td>
-              </tr>
-            {/each}
-            {#if $liabilities.length > 0}
-              <tr style="font-weight: bold;" class="error">
-                <td colspan="2">Total pasivos</td>
-                <td>S/. {$sumLiabilities}</td>
-                <td>Resultado</td>
-              </tr>
-            {/if}
-            {#each $equity as eq, pos}
-              <tr>
-                <td>{pos + 1}</td>
-                <td>{eq.title}</td>
-                <td>S/. {eq.price}</td>
-                <td>Patrimonio</td>
-              </tr>
-            {/each}
-            {#if $equity.length > 0}
-              <tr style="font-weight: bold;" class="error">
-                <td colspan="2">Total patrimonios</td>
-                <td>S/. {$sumEquities}</td>
-                <td>Resultado</td>
-              </tr>
-            {/if}
-          </tbody>
-        </table>
+        <div style="font-size: 1.35rem;">
+          {#if $assets.length > 0 || $assetsNC.length > 0}
+            <p>Suma de activos: S/. {$sumAssets}</p>
+          {/if}
+          {#if $liabilities.length > 0 || $liabilitiesNC.length > 0}
+            <p>Suma de pasivos: S/. {$sumLiabilities}</p>
+          {/if}
+          {#if $equity.length > 0 || $incomes.length > 0 || $expenses.length > 0 || $costs.length > 0}
+            <p>Suma de patrimonios: S/. {$sumEquities}</p>
+          {/if}
+        </div>
         <button
           class="responsive fill"
           style="margin-top: 2rem;"

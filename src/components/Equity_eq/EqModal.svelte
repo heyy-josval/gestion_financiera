@@ -8,10 +8,20 @@
 <dialog class="modal" id="eq_pat_modal">
   <h5 class="max center-align" style="margin-top: 1rem;">
     Agregar {type == "assets"
-      ? "activo"
+      ? "activo corriente"
+      : type == "assetsNC"
+      ? "activo no corriente"
       : type == "liabilities"
-      ? "pasivo"
-      : "patrimonio"}
+      ? "pasivo corriente"
+      : type == "liabilitiesNC"
+      ? "pasivo no corriente"
+      : type == "equity"
+      ? "patrimonio"
+      : type == "incomes"
+      ? "ingreso"
+      : type == "expenses"
+      ? "gasto"
+      : "costo"}
   </h5>
 
   <!-- svelte-ignore a11y-label-has-associated-control -->
