@@ -1,1 +1,1 @@
-export { default as component } from "../../../../src/routes/equity_equation/+page.svelte";
+export { default as component } from "../../../../src/routes/cti_ceo/+page.svelte";

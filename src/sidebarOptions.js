@@ -48,6 +48,12 @@ const loginButtons = [
     },
   },
   {
+    title: "CTI & CEO",
+    handle: function () {
+      goto("/cti_ceo");
+    },
+  },
+  {
     title: "Punto de Equilibrio",
     handle: function () {
       goto("/balance_point");
